@@ -1,0 +1,179 @@
+/* ============================================================
+   Simple CV / Resume Card
+   Concept: a clean, printable single-page resume document.
+   ============================================================ */
+
+:root {
+  --paper: #FDFCFA;
+  --ink: #1B1B18;
+  --ink-muted: #5C5C56;
+  --rule: #E2E0D8;
+  --accent: #2C4A3B;
+
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, sans-serif;
+
+  --max-w: 760px;
+}
+
+[data-theme="dark"] {
+  --paper: #17181A;
+  --ink: #EDEDE9;
+  --ink-muted: #A3A39A;
+  --rule: #33352F;
+  --accent: #7FB89A;
+}
+
+/* ---------- Reset ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+h1, h2, h3, p, ul { margin: 0; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--paper);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 28px 32px 64px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .resume { animation: fadeIn 0.4s ease both; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Toolbar (hidden on print) ---------- */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Header ---------- */
+.resume-header { margin-bottom: 30px; }
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+.title {
+  color: var(--ink-muted);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 0.88rem;
+}
+.contact-row a { color: var(--accent); text-decoration: none; }
+.contact-row a:hover,
+.contact-row a:focus-visible { text-decoration: underline; }
+.contact-row span { color: var(--ink-muted); }
+
+/* ---------- Sections ---------- */
+.block { margin-bottom: 30px; }
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.entry { margin-bottom: 20px; }
+.entry:last-child { margin-bottom: 0; }
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.dates {
+  font-size: 0.85rem;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.org {
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  margin: 2px 0 8px;
+}
+
+.entry p { line-height: 1.6; }
+.entry ul {
+  padding-left: 1.1em;
+  line-height: 1.6;
+}
+.entry li { margin-bottom: 4px; }
+.entry li::marker { color: var(--accent); }
+
+.skill-line { line-height: 1.7; }
+.skill-line strong { font-weight: 600; }
+
+.links-row { display: flex; gap: 16px; margin-top: 8px; }
+.links-row a { color: var(--accent); font-size: 0.85rem; text-decoration: none; }
+.links-row a:hover,
+.links-row a:focus-visible { text-decoration: underline; }
+
+.resume-footer p {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .page-wrap { padding: 20px 18px 48px; }
+  .entry-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .toolbar { display: none; }
+  body { background: #FFFFFF; color: #111111; }
+  .page-wrap { max-width: 100%; padding: 0; }
+  a { color: #111111; text-decoration: underline; }
+  .dates, .contact-row a { color: #111111; }
+  h2 { border-bottom-color: #111111; }
+  .entry li::marker { color: #111111; }
+  @page { margin: 1.5cm; }
+}
